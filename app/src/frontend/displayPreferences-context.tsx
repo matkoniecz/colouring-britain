@@ -34,6 +34,10 @@ interface DisplayPreferencesContextState {
     riversSwitch: (e: React.FormEvent<HTMLFormElement>) => void;
     riversSwitchOnClick: React.MouseEventHandler<HTMLButtonElement>;
 
+    rivers_old_style: LayerEnablementState;
+    rivers_old_styleSwitch: (e: React.FormEvent<HTMLFormElement>) => void;
+    rivers_old_styleSwitchOnClick: React.MouseEventHandler<HTMLButtonElement>;
+
     borough: LayerEnablementState;
     boroughSwitch: (e: React.FormEvent<HTMLFormElement>) => void;
     boroughSwitchOnClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -99,6 +103,10 @@ export const DisplayPreferencesContext = createContext<DisplayPreferencesContext
     riversSwitch: stub,
     riversSwitchOnClick: undefined,
 
+    rivers_old_style: undefined,
+    rivers_old_styleSwitch: stub,
+    rivers_old_styleSwitchOnClick: undefined,
+
     parcel: undefined,
     parcelSwitch: stub,
     parcelSwitchOnClick: undefined,
@@ -145,6 +153,7 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
     const defaultHousing = 'disabled'
     const defaultBorough = 'enabled'
     const defaultRivers = 'disabled'
+    const defaultRivers_old_style = 'disabled'
     const defaultParcel = 'disabled'
     const defaultConservation = 'disabled'
     const defaultHistoricData = 'disabled'
@@ -158,6 +167,7 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
     const [creative, setCreative] = useState<LayerEnablementState>(defaultCreative);
     const [housing, setHousing] = useState<LayerEnablementState>(defaultHousing);
     const [rivers, setRivers] = useState<LayerEnablementState>(defaultRivers);
+    const [rivers_old_style, setRivers_old_style] = useState<LayerEnablementState>(defaultRivers_old_style);
     const [borough, setBorough] = useState<LayerEnablementState>(defaultBorough);
     const [parcel, setParcel] = useState<LayerEnablementState>(defaultParcel);
     const [conservation, setConservation] = useState<LayerEnablementState>(defaultConservation);
@@ -183,6 +193,7 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
             setCreative(defaultCreative);
             setHousing(defaultHousing);
             setRivers(defaultRivers);
+            setRivers_old_style(defaultRivers_old_style);
             setBorough(defaultBorough)
             setParcel(defaultParcel);
             setConservation(defaultConservation);
@@ -209,6 +220,9 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
             return true;
         }
         if(rivers != defaultRivers) {
+            return true;
+        }
+        if(rivers_old_style != defaultRivers_old_style) {
             return true;
         }
         if(borough != defaultBorough) {
@@ -312,6 +326,21 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
         e.preventDefault();
         const newRivers = (rivers === 'enabled')? 'disabled' : 'enabled';
         setRivers(newRivers);
+    }
+
+    const rivers_old_styleSwitch = useCallback(
+        (e) => {
+            flipRivers_old_style(e)
+        },
+        [rivers_old_style],
+    )
+    const rivers_old_styleSwitchOnClick = (e) => {
+        flipRivers_old_style(e)
+    }
+    function flipRivers_old_style(e) {
+        e.preventDefault();
+        const newRivers_old_style = (rivers_old_style === 'enabled')? 'disabled' : 'enabled';
+        setRivers_old_style(newRivers_old_style);
     }
 
     const boroughSwitch = useCallback(
@@ -510,6 +539,9 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
             rivers,
             riversSwitch,
             riversSwitchOnClick,
+            rivers_old_style,
+            rivers_old_styleSwitch,
+            rivers_old_styleSwitchOnClick,
 
             borough,
             boroughSwitch,

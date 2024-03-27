@@ -23,6 +23,7 @@ import { ConservationAreaBoundaryLayer } from './layers/conservation-boundary-la
 import { VistaBoundaryLayer } from './layers/vista-boundary-layer';
 import { HousingBoundaryLayer } from './layers/housing-boundary-layer';
 import { CreativeBoundaryLayer } from './layers/creative-boundary-layer';
+import { RiversOldStyleLayer } from './layers/rivers-old-style-layer';
 import { BuildingBaseLayer } from './layers/building-base-layer';
 import { BuildingDataLayer } from './layers/building-data-layer';
 import { BuildingNumbersLayer } from './layers/building-numbers-layer';
@@ -34,6 +35,7 @@ import SearchBox from './search-box';
 import ThemeSwitcher from './theme-switcher';
 import DataLayerSwitcher from './data-switcher';
 import { RiversSwitcher } from './rivers-switcher';
+import { Rivers_old_styleSwitcher } from './rivers_old_style-switcher';
 import { BoroughSwitcher } from './borough-switcher';
 import { ParcelSwitcher } from './parcel-switcher';
 import { FloodSwitcher } from './flood-switcher';
@@ -153,6 +155,7 @@ export const ColouringMap : FC<ColouringMapProps> = ({
                     <VistaBoundaryLayer/>
                     <HousingBoundaryLayer/>
                     <CreativeBoundaryLayer/>
+                    <RiversOldStyleLayer/>
                     <HistoricalFootprintsLayer/>
                     <BuildingNumbersLayer revisionId={revisionId} />
                     {
@@ -195,6 +198,7 @@ export const ColouringMap : FC<ColouringMapProps> = ({
                             <HousingSwitcher />
                             <CreativeSwitcher />
                             <RiversSwitcher/>
+                            <Rivers_old_styleSwitcher/>
                         </>
                         : <></>
                     }
