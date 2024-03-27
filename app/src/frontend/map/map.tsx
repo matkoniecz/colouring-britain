@@ -33,6 +33,7 @@ import { Legend } from './legend';
 import SearchBox from './search-box';
 import ThemeSwitcher from './theme-switcher';
 import DataLayerSwitcher from './data-switcher';
+import { RiversSwitcher } from './rivers-switcher';
 import { BoroughSwitcher } from './borough-switcher';
 import { ParcelSwitcher } from './parcel-switcher';
 import { FloodSwitcher } from './flood-switcher';
@@ -193,7 +194,7 @@ export const ColouringMap : FC<ColouringMapProps> = ({
                             <VistaSwitcher />
                             <HousingSwitcher />
                             <CreativeSwitcher />
-                            
+                            <RiversSwitcher/>
                         </>
                         : <></>
                     }

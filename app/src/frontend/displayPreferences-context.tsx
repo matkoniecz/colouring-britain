@@ -30,6 +30,10 @@ interface DisplayPreferencesContextState {
     parcelSwitch: (e: React.FormEvent<HTMLFormElement>) => void;
     parcelSwitchOnClick: React.MouseEventHandler<HTMLButtonElement>;
 
+    rivers: LayerEnablementState;
+    riversSwitch: (e: React.FormEvent<HTMLFormElement>) => void;
+    riversSwitchOnClick: React.MouseEventHandler<HTMLButtonElement>;
+
     borough: LayerEnablementState;
     boroughSwitch: (e: React.FormEvent<HTMLFormElement>) => void;
     boroughSwitchOnClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -91,6 +95,10 @@ export const DisplayPreferencesContext = createContext<DisplayPreferencesContext
     conservationSwitch: stub,
     conservationSwitchOnClick: undefined,
 
+    rivers: undefined,
+    riversSwitch: stub,
+    riversSwitchOnClick: undefined,
+
     parcel: undefined,
     parcelSwitch: stub,
     parcelSwitchOnClick: undefined,
@@ -136,6 +144,7 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
     const defaultCreative = 'disabled'
     const defaultHousing = 'disabled'
     const defaultBorough = 'enabled'
+    const defaultRivers = 'disabled'
     const defaultParcel = 'disabled'
     const defaultConservation = 'disabled'
     const defaultHistoricData = 'disabled'
@@ -148,6 +157,7 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
     const [flood, setFlood] = useState<LayerEnablementState>(defaultFlood);
     const [creative, setCreative] = useState<LayerEnablementState>(defaultCreative);
     const [housing, setHousing] = useState<LayerEnablementState>(defaultHousing);
+    const [rivers, setRivers] = useState<LayerEnablementState>(defaultRivers);
     const [borough, setBorough] = useState<LayerEnablementState>(defaultBorough);
     const [parcel, setParcel] = useState<LayerEnablementState>(defaultParcel);
     const [conservation, setConservation] = useState<LayerEnablementState>(defaultConservation);
@@ -172,6 +182,7 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
             setFlood(defaultFlood);
             setCreative(defaultCreative);
             setHousing(defaultHousing);
+            setRivers(defaultRivers);
             setBorough(defaultBorough)
             setParcel(defaultParcel);
             setConservation(defaultConservation);
@@ -195,6 +206,9 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
             return true;
         }
         if(housing != defaultHousing) {
+            return true;
+        }
+        if(rivers != defaultRivers) {
             return true;
         }
         if(borough != defaultBorough) {
@@ -283,6 +297,21 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
         e.preventDefault();
         const newCreative = (creative === 'enabled')? 'disabled' : 'enabled';
         setCreative(newCreative);
+    }
+
+    const riversSwitch = useCallback(
+        (e) => {
+            flipRivers(e)
+        },
+        [rivers],
+    )
+    const riversSwitchOnClick = (e) => {
+        flipRivers(e)
+    }
+    function flipRivers(e) {
+        e.preventDefault();
+        const newRivers = (rivers === 'enabled')? 'disabled' : 'enabled';
+        setRivers(newRivers);
     }
 
     const boroughSwitch = useCallback(
@@ -478,7 +507,10 @@ export const DisplayPreferencesProvider: React.FC<{}> = ({children}) => {
             parcel,
             parcelSwitch,
             parcelSwitchOnClick,
-        
+            rivers,
+            riversSwitch,
+            riversSwitchOnClick,
+
             borough,
             boroughSwitch,
             boroughSwitchOnClick,
